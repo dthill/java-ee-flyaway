@@ -1,4 +1,4 @@
-package pgfsd.javaeeflyaway.entities;
+package pgfsd.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

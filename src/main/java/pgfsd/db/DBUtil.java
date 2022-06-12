@@ -1,4 +1,4 @@
-package pgfsd.javaeeflyaway.service;
+package pgfsd.db;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.Metadata;
@@ -23,6 +23,7 @@ public class DBUtil {
                     .getSessionFactoryBuilder()
                     .build();
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             throw new ExceptionInInitializerError(e);
         }
     }

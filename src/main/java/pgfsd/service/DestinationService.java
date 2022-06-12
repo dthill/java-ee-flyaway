@@ -1,7 +1,7 @@
-package pgfsd.javaeeflyaway.service;
+package pgfsd.service;
 
-import pgfsd.javaeeflyaway.dao.DestinationsDao;
-import pgfsd.javaeeflyaway.entities.Destination;
+import pgfsd.dao.DestinationsDao;
+import pgfsd.entities.Destination;
 
 import java.util.List;
 

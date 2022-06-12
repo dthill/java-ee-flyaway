@@ -1,11 +1,11 @@
-package pgfsd.javaeeflyaway.dao;
+package pgfsd.dao;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import pgfsd.javaeeflyaway.entities.Destination;
-import pgfsd.javaeeflyaway.service.DBUtil;
+import pgfsd.entities.Destination;
+import pgfsd.db.DBUtil;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;

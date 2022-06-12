@@ -1,6 +1,6 @@
-package pgfsd.javaeeflyaway.controller;
+package pgfsd.controller;
 
-import pgfsd.javaeeflyaway.service.DestinationService;
+import pgfsd.service.DestinationService;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -13,7 +13,6 @@ public class FlightAdminController extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        super.init();
         destinationService = new DestinationService();
     }
 
