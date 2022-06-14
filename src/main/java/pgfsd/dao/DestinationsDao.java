@@ -19,7 +19,7 @@ public class DestinationsDao {
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         try {
-            session.persist(destination);
+            session.merge(destination);
             transaction.commit();
             session.close();
             return true;
@@ -44,5 +44,25 @@ public class DestinationsDao {
                 .getResultList();
         session.close();
         return  allDestinations;
+    }
+
+    public boolean deleteDestination(Destination destination){
+        SessionFactory sessionFactory = DBUtil.sessionFactory;
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+
+        try {
+            session.delete(destination);
+            transaction.commit();
+            session.close();
+            return true;
+        } catch (HibernateException e) {
+            System.out.println(Arrays.toString(e.getStackTrace()));
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            session.close();
+            return false;
+        }
     }
 }

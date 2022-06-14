@@ -14,6 +14,14 @@ public class Destination {
     @Column(nullable = false)
     private String name;
 
+    public Destination() {
+    }
+
+    public Destination(String code, String name) {
+        this.code = code;
+        this.name = name;
+    }
+
     public String getCode() {
         return code;
     }
