@@ -13,6 +13,7 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <mapping class="pgfsd.entities.Destination"/>
+        <mapping class="pgfsd.entities.Airline"/>
 
     </session-factory>
 </hibernate-configuration>

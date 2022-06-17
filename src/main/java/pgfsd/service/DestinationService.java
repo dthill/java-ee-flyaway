@@ -6,9 +6,9 @@ import pgfsd.entities.Destination;
 import java.util.List;
 
 public class DestinationService {
-    private DestinationsDao destinationsDao = new DestinationsDao();
+    private final DestinationsDao destinationsDao = new DestinationsDao();
 
-    public String getAllDestionation() {
+    public String getAllDestination() {
         List<Destination> allDestinations = destinationsDao.getAllDestinations();
         if (allDestinations == null || allDestinations.size() == 0) {
             return ("<p>No destinations found</p>");

@@ -5,6 +5,31 @@
 <body>
 <jsp:include page="/flight-admin-controller"></jsp:include>
 <h1>Manage Flights</h1>
+<h2>Airlines</h2>
+<form action="flights-admin.jsp" method="post">
+    <label for="airline-code">Code</label>
+    <input type="text" name="airline-code" id="airline-code">
+    <label for="airline-name">Name</label>
+    <input type="text" name="airline-name" id="airline-name">
+    <input type="submit" value="add/edit airline">
+</form>
+<div>
+    <%
+        String addedAirline = (String) session.getAttribute("airline-added");
+        if (addedAirline != null) {
+            out.print(addedAirline);
+        }
+
+        String deletedAirline = (String) session.getAttribute("airline-deleted");
+        if(deletedAirline != null){
+            out.print(deletedAirline);
+        }
+
+        String airlines = (String) session.getAttribute("airlines");
+        out.print(airlines);
+
+    %>
+</div>
 <h2>Destinations</h2>
 <form action="flights-admin.jsp" method="post">
     <label for="destination-code">Code</label>
@@ -15,14 +40,14 @@
 </form>
 <div>
     <%
-        String added = (String) session.getAttribute("destination-added");
-        if (added != null) {
-            out.print(added);
+        String addedDestination = (String) session.getAttribute("destination-added");
+        if (addedDestination != null) {
+            out.print(addedDestination);
         }
 
-        String deleted = (String) session.getAttribute("destination-deleted");
-        if(deleted != null){
-            out.print(deleted);
+        String deletedDestination = (String) session.getAttribute("destination-deleted");
+        if(deletedDestination != null){
+            out.print(deletedDestination);
         }
 
         String destinations = (String) session.getAttribute("destinations");

@@ -1,6 +1,8 @@
 package pgfsd.controller;
 
+import pgfsd.entities.Airline;
 import pgfsd.entities.Destination;
+import pgfsd.service.AirlineService;
 import pgfsd.service.DestinationService;
 
 import javax.servlet.ServletException;
@@ -14,16 +16,19 @@ import java.io.IOException;
 @WebServlet("/flight-admin-controller")
 public class FlightAdminController extends HttpServlet {
     private DestinationService destinationService;
+    private AirlineService airlineService;
 
     @Override
     public void init() throws ServletException {
         destinationService = new DestinationService();
+        airlineService = new AirlineService();
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession httpSession = request.getSession();
-        httpSession.setAttribute("destinations", destinationService.getAllDestionation());
+        httpSession.setAttribute("destinations", destinationService.getAllDestination());
+        httpSession.setAttribute("airlines", airlineService.getAllAirlines());
     }
 
     @Override
@@ -33,15 +38,28 @@ public class FlightAdminController extends HttpServlet {
         Destination destination = new Destination(
                 request.getParameter("destination-code"),
                 request.getParameter("destination-name"));
-        String added = destinationService.addDestination(destination);
-        httpSession.setAttribute("destination-added", added);
+        String addedDestination = destinationService.addDestination(destination);
+        httpSession.setAttribute("destination-added", addedDestination);
 
         Destination deleteDestination = new Destination(
                 request.getParameter("destination-delete"),
                 ""
         );
-        String deleted = destinationService.deleteDestination(deleteDestination);
-        httpSession.setAttribute("destination-deleted", deleted);
+        String deletedDestination = destinationService.deleteDestination(deleteDestination);
+        httpSession.setAttribute("destination-deleted", deletedDestination);
+
+        Airline airline = new Airline(
+                request.getParameter("airline-code"),
+                request.getParameter("airline-name"));
+        String addedAirline = airlineService.addAirline(airline);
+        httpSession.setAttribute("airline-added", addedAirline);
+
+        Airline deleteAirline = new Airline(
+                request.getParameter("airline-delete"),
+                ""
+        );
+        String deletedAirline = airlineService.deleteAirline(deleteAirline);
+        httpSession.setAttribute("airline-deleted", deletedAirline);
 
         doGet(request,response);
     }
