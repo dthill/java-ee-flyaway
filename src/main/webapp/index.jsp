@@ -8,5 +8,7 @@
 </h1>
 <br/>
 <a href="flights-admin.jsp">Flight Administration</a>
+<a href="users-admin.jsp">Users Administration</a>
+
 </body>
 </html>

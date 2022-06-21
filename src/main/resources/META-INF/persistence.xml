@@ -6,6 +6,7 @@
     <persistence-unit name="default">
         <class>pgfsd.entities.Airline</class>
         <class>pgfsd.entities.Flight</class>
+        <class>pgfsd.entities.User</class>
 
     </persistence-unit>
 </persistence>
