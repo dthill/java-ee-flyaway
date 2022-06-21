@@ -5,6 +5,7 @@
              version="2.2">
     <persistence-unit name="default">
         <class>pgfsd.entities.Airline</class>
+        <class>pgfsd.entities.Flight</class>
 
     </persistence-unit>
 </persistence>

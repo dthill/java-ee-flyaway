@@ -63,6 +63,6 @@ public class DestinationService {
         if(success){
             return "Destination has been removed.";
         }
-        return "An error occurred deleting the destination.";
+        return "An error occurred deleting the destination. Check there are no flights requiring this destination";
     }
 }

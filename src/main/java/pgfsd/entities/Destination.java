@@ -1,9 +1,7 @@
 package pgfsd.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Destinations")
@@ -13,7 +11,6 @@ public class Destination {
     private String code;
     @Column(nullable = false)
     private String name;
-
     public Destination() {
     }
 
@@ -36,5 +33,18 @@ public class Destination {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public boolean equals(Object destination) {
+        if (this == destination) return true;
+        if (destination == null || getClass() != destination.getClass()) return false;
+        Destination that = (Destination) destination;
+        return Objects.equals(code, that.code);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code);
     }
 }

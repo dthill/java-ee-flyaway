@@ -63,6 +63,6 @@ public class AirlineService {
         if(success){
             return "Airline has been removed.";
         }
-        return "An error occurred deleting the airline.";
+        return "An error occurred deleting the airline. Check there are no flights requiring this airline";
     }
 }

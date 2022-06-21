@@ -5,8 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import pgfsd.db.DBUtil;
-import pgfsd.entities.Airline;
-
+import pgfsd.entities.Flight;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -14,13 +13,13 @@ import javax.persistence.criteria.Root;
 import java.util.Arrays;
 import java.util.List;
 
-public class AirlineDao {
-    public boolean addAirline(Airline airline){
+public class FlightDao {
+    public boolean addFlight(Flight flight){
         SessionFactory sessionFactory = DBUtil.sessionFactory;
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         try {
-            session.merge(airline);
+            session.merge(flight);
             transaction.commit();
             session.close();
             return true;
@@ -34,26 +33,26 @@ public class AirlineDao {
         }
     }
 
-    public List<Airline> getAllAirlines(){
+    public List<Flight> getAllFlights(){
         SessionFactory factory = DBUtil.sessionFactory;
         Session session = factory.openSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-        CriteriaQuery<Airline> criteriaQuery = criteriaBuilder.createQuery(Airline.class);
-        Root<Airline> root = criteriaQuery.from(Airline.class);
-        List<Airline> allDestinations = session
+        CriteriaQuery<Flight> criteriaQuery = criteriaBuilder.createQuery(Flight.class);
+        Root<Flight> root = criteriaQuery.from(Flight.class);
+        List<Flight> allFlights = session
                 .createQuery(criteriaQuery.select(root))
                 .getResultList();
         session.close();
-        return  allDestinations;
+        return  allFlights;
     }
 
-    public boolean deleteAirline(Airline airline){
+    public boolean deleteFlight(Flight flight){
         SessionFactory sessionFactory = DBUtil.sessionFactory;
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
         try {
-            session.delete(airline);
+            session.delete(flight);
             transaction.commit();
             session.close();
             return true;
