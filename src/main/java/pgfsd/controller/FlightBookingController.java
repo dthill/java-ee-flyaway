@@ -27,8 +27,11 @@ public class FlightBookingController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String bookingQuantityInput = request.getParameter("booking-quantity");
+        String creditCarInput = request.getParameter("booking-credit-card");
+
         // check there is a credit card
-        //if no set error as sesstion attribute and stay on page
+        //if no set error as session attribute and stay on page
         // if yes set save booking forward to manage booking page page
     }
 }
