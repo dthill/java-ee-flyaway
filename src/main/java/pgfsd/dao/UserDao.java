@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class UserDao {
-    public boolean addUser(User user){
+    public boolean addUser(User user) {
         user.setEmail(user.getEmail().toLowerCase());
         SessionFactory sessionFactory = DBUtil.sessionFactory;
         Session session = sessionFactory.openSession();
@@ -34,7 +34,7 @@ public class UserDao {
         }
     }
 
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         SessionFactory factory = DBUtil.sessionFactory;
         Session session = factory.openSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
@@ -44,10 +44,10 @@ public class UserDao {
                 .createQuery(criteriaQuery.select(root))
                 .getResultList();
         session.close();
-        return  allUsers;
+        return allUsers;
     }
 
-    public boolean deleteUser(User user){
+    public boolean deleteUser(User user) {
         SessionFactory sessionFactory = DBUtil.sessionFactory;
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();

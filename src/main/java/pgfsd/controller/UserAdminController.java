@@ -18,7 +18,7 @@ public class UserAdminController extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        userService= new UserService();
+        userService = new UserService();
     }
 
     @Override
@@ -37,7 +37,7 @@ public class UserAdminController extends HttpServlet {
                 request.getParameter("password"),
                 request.getParameter("name"),
                 admin
-                );
+        );
         String addedUser = userService.addUser(user);
         httpSession.setAttribute("user-added", addedUser);
 
@@ -50,6 +50,6 @@ public class UserAdminController extends HttpServlet {
         String deletedUser = userService.deleteUser(deleteUser);
         httpSession.setAttribute("user-deleted", deletedUser);
 
-        doGet(request,response);
+        doGet(request, response);
     }
 }

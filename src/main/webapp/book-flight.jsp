@@ -1,7 +1,7 @@
 
 <html>
 <head>
-    <title>Flight Listing</title>
+    <title>Book Flight\</title>
 </head>
 <body>
 

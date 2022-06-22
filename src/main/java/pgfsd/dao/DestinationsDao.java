@@ -14,7 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DestinationsDao {
-    public boolean addDestination(Destination destination){
+    public boolean addDestination(Destination destination) {
         SessionFactory sessionFactory = DBUtil.sessionFactory;
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -33,7 +33,7 @@ public class DestinationsDao {
         }
     }
 
-    public List<Destination> getAllDestinations(){
+    public List<Destination> getAllDestinations() {
         SessionFactory factory = DBUtil.sessionFactory;
         Session session = factory.openSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
@@ -43,10 +43,10 @@ public class DestinationsDao {
                 .createQuery(criteriaQuery.select(root))
                 .getResultList();
         session.close();
-        return  allDestinations;
+        return allDestinations;
     }
 
-    public boolean deleteDestination(Destination destination){
+    public boolean deleteDestination(Destination destination) {
         SessionFactory sessionFactory = DBUtil.sessionFactory;
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();

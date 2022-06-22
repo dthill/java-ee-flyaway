@@ -15,7 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class AirlineDao {
-    public boolean addAirline(Airline airline){
+    public boolean addAirline(Airline airline) {
         SessionFactory sessionFactory = DBUtil.sessionFactory;
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -34,7 +34,7 @@ public class AirlineDao {
         }
     }
 
-    public List<Airline> getAllAirlines(){
+    public List<Airline> getAllAirlines() {
         SessionFactory factory = DBUtil.sessionFactory;
         Session session = factory.openSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
@@ -44,10 +44,10 @@ public class AirlineDao {
                 .createQuery(criteriaQuery.select(root))
                 .getResultList();
         session.close();
-        return  allDestinations;
+        return allDestinations;
     }
 
-    public boolean deleteAirline(Airline airline){
+    public boolean deleteAirline(Airline airline) {
         SessionFactory sessionFactory = DBUtil.sessionFactory;
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();

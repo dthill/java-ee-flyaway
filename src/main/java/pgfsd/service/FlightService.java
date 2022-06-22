@@ -14,7 +14,7 @@ import java.util.List;
 public class FlightService {
     private final FlightDao flightDao = new FlightDao();
     private final AirlineDao airlineDao = new AirlineDao();
-    private  final DestinationsDao destinationsDao = new DestinationsDao();
+    private final DestinationsDao destinationsDao = new DestinationsDao();
 
     public String getAllFlights() {
         List<Flight> allFlights = flightDao.getAllFlights();
@@ -60,7 +60,7 @@ public class FlightService {
         if (flight == null || nullFlight(flight)) {
             return null;
         }
-        if(flight.getId() == null){
+        if (flight.getId() == null) {
             return "Entered Flight not valid. Provide a valid flight id.";
         }
         if (flight.getDepartureDestination() == null) {
@@ -77,7 +77,7 @@ public class FlightService {
         if (flight.getArrivalDate() == null || flight.getArrivalDate().before(flight.getDepartureDate())) {
             return "Entered Flight not valid. Provide a valid arrival date date after the departure date.";
         }
-        if(flight.getPrice() == null || flight.getPrice() <= 0){
+        if (flight.getPrice() == null || flight.getPrice() <= 0) {
             return "Entered Flight not valid. Provide a valid price > 0.";
         }
         boolean success = flightDao.addFlight(flight);
@@ -111,10 +111,10 @@ public class FlightService {
         return result.toString();
     }
 
-    public String getDestinationOptions(){
+    public String getDestinationOptions() {
         List<Destination> destinations = destinationsDao.getAllDestinations();
         StringBuilder result = new StringBuilder();
-        for(Destination destination:destinations){
+        for (Destination destination : destinations) {
             result.append("<option value=\"")
                     .append(destination.getCode())
                     .append("\">")
@@ -124,28 +124,56 @@ public class FlightService {
         return result.toString();
     }
 
-    public String canSearchFlight(Flight flight){
-        if(flight == null){
+    public String canSearchFlight(Flight flight) {
+        if (flight == null) {
             return "No valid Flight provided";
         }
-        if(flight.getDepartureDate() == null ||
-                flight.getDepartureDate().after(new Date())){
+        if (flight.getDepartureDate() == null) {
             return "No valid flight provided. Provide a valid departure date not in the past.";
         }
-        if(flight.getArrivalDate() == null ||
-                flight.getArrivalDate().after(flight.getDepartureDate())){
-            return "No valid flight provided. Provide a valid arrival date not in the past.";
-        }
-        if(flight.getDepartureDestination() == null ||
-                flight.getDepartureDestination().equals("")){
+        if (flight.getDepartureDestination() == null ||
+                flight.getDepartureDestination().equals("")) {
             return "No valid flight provided. Provide a valid departure destination.";
         }
-        if(flight.getArrivalDestination() == null ||
+        if (flight.getArrivalDestination() == null ||
                 flight.getArrivalDestination().equals("") ||
-                flight.getArrivalDestination().equals(flight.getDepartureDestination())){
+                flight.getArrivalDestination().equals(flight.getDepartureDestination())) {
             return "No valid flight provided. Provide a valid arrival destination different from the departure destination.";
         }
         return null;
+    }
+
+    public String searchFlights(Flight searchFlight){
+        List<Flight> matchingFlights = flightDao.searchFlights(searchFlight);
+        if(matchingFlights.size() == 0){
+            return "<p>No matching flights found</p>";
+        }
+        StringBuilder result = new StringBuilder("<table><tr><td>From</td><td>To</td><td>departure date</td><td>arrival date</td><td>price</td><td>book</td></tr>");
+        for (Flight flight : matchingFlights) {
+            String bookLink = String.format("<a href=\"book-flight.jsp?flight=%s\">book</a>", flight.getId().toString());
+            result.append("<tr>")
+                    .append("<td>")
+                    .append(flight.getDepartureDestination().getName())
+                    .append("</td>")
+                    .append("<td>")
+                    .append(flight.getArrivalDestination().getName())
+                    .append("</td>")
+                    .append("<td>")
+                    .append(flight.getDepartureDate().toString())
+                    .append("</td>")
+                    .append("<td>")
+                    .append(flight.getArrivalDate().toString())
+                    .append("</td>")
+                    .append("<td>")
+                    .append(flight.getPrice())
+                    .append("</td>")
+                    .append("<td>")
+                    .append(bookLink)
+                    .append("</td>")
+                    .append("</tr>");
+        }
+        result.append("</table>");
+        return result.toString();
     }
 
     private boolean nullFlight(Flight flight) {

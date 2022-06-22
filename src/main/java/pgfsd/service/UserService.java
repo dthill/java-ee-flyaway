@@ -47,13 +47,13 @@ public class UserService {
         if (user == null) {
             return null;
         }
-        if(user.getEmail() == null || user.getEmail().equals("")){
+        if (user.getEmail() == null || user.getEmail().equals("")) {
             return "User not valid. Provide a valid email";
         }
-        if(user.getPassword() == null || user.getPassword().equals("")){
+        if (user.getPassword() == null || user.getPassword().equals("")) {
             return "User not valid. Provide a valid password";
         }
-        if(user.getName() == null || user.getName().equals("")){
+        if (user.getName() == null || user.getName().equals("")) {
             return "User not valid. Provide a valid name";
         }
         boolean success = userDao.addUser(user);
@@ -63,12 +63,12 @@ public class UserService {
         return "An error occurred adding/editing the user.";
     }
 
-    public String deleteUser(User user){
-        if(user == null || user.getEmail() == null || user.getEmail().equals("")){
+    public String deleteUser(User user) {
+        if (user == null || user.getEmail() == null || user.getEmail().equals("")) {
             return "Not a valid user to delete.";
         }
         boolean success = userDao.deleteUser(user);
-        if(success){
+        if (success) {
             return "User has been removed.";
         }
         return "An error occurred deleting the user";

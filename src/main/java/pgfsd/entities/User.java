@@ -20,7 +20,8 @@ public class User {
     @ColumnDefault("false")
     private Boolean admin;
 
-    public User() {    }
+    public User() {
+    }
 
     public User(String email, String password, String name, Boolean admin) {
         this.email = email;

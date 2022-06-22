@@ -11,10 +11,12 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class FlightDao {
-    public boolean addFlight(Flight flight){
+    public boolean addFlight(Flight flight) {
         SessionFactory sessionFactory = DBUtil.sessionFactory;
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -33,7 +35,7 @@ public class FlightDao {
         }
     }
 
-    public List<Flight> getAllFlights(){
+    public List<Flight> getAllFlights() {
         SessionFactory factory = DBUtil.sessionFactory;
         Session session = factory.openSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
@@ -43,10 +45,10 @@ public class FlightDao {
                 .createQuery(criteriaQuery.select(root))
                 .getResultList();
         session.close();
-        return  allFlights;
+        return allFlights;
     }
 
-    public boolean deleteFlight(Flight flight){
+    public boolean deleteFlight(Flight flight) {
         SessionFactory sessionFactory = DBUtil.sessionFactory;
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -64,5 +66,26 @@ public class FlightDao {
             session.close();
             return false;
         }
+    }
+
+    public List<Flight> searchFlights(Flight flight){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(flight.getDepartureDate());
+        calendar.add(Calendar.DATE, 1);
+        Date nextDay = calendar.getTime();
+        SessionFactory factory = DBUtil.sessionFactory;
+        Session session = factory.openSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Flight> criteriaQuery = criteriaBuilder.createQuery(Flight.class);
+        Root<Flight> root = criteriaQuery.from(Flight.class);
+        List<Flight> matchingFlights = session
+                .createQuery(criteriaQuery.select(root).where(criteriaBuilder.and(
+                        criteriaBuilder.equal(root.get("departureDestination"), flight.getDepartureDestination()),
+                        criteriaBuilder.equal(root.get("arrivalDestination"), flight.getArrivalDestination()),
+                        criteriaBuilder.between(root.get("departureDate"),flight.getDepartureDate(), nextDay)
+                )))
+                .getResultList();
+        session.close();
+        return matchingFlights;
     }
 }

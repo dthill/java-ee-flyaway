@@ -19,51 +19,45 @@ public class FlightSelectionController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession httpSession = request.getSession();
-        httpSession.setAttribute("destination-options",flightService.getDestinationOptions());
+        httpSession.setAttribute("destination-options", flightService.getDestinationOptions());
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String departureDestinationInput = request.getParameter("departure-destination");
-        String departureDateInput = request.getParameter("departure-date");
         String arrivalDestinationInput = request.getParameter("arrival-destination");
-        String arrivalDateInput = request.getParameter("arrival-destination");
+        String departureDateInput = request.getParameter("departure-date");
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Destination departureDestination = new Destination(departureDestinationInput, "");
-        Date departureDate = null;
         Destination arrivalDestination = new Destination(arrivalDestinationInput, "");
-        Date arrivalDate = null;
-        try{
+        Date departureDate = null;
+
+        try {
             departureDate = formatter.parse(departureDateInput);
-        } catch (ParseException e){
-            System.out.println("Departure date not valid: "+departureDateInput);
+        } catch (ParseException e) {
+            System.out.println("Departure date not valid: " + departureDateInput);
             System.out.println(e.getMessage());
         }
-        try{
-            arrivalDate = formatter.parse(arrivalDateInput);
-        } catch (ParseException e){
-            System.out.println("Arrival date not valid: "+arrivalDateInput);
-            System.out.println(e.getMessage());
-        }
+
         Flight flight = new Flight(
                 0L,
                 null,
                 departureDestination,
                 departureDate,
                 arrivalDestination,
-                arrivalDate,
+                new Date(),
                 0.0);
         String canSearchFlight = flightService.canSearchFlight(flight);
-        HttpSession httpSession = request.getSession()
-;        if(canSearchFlight == null){
-            httpSession.setAttribute("search-flight", flight);
-            getServletContext()
-                    .getRequestDispatcher("/flight-listing.jsp")
-                    .forward(request, response);
+        HttpSession httpSession = request.getSession();
+        if (canSearchFlight == null) {
+            httpSession.setAttribute("matching-flights", flightService.searchFlights(flight));
+            httpSession.setAttribute("departure-destination", departureDestinationInput);
+            httpSession.setAttribute("arrival-destination", arrivalDestinationInput);
+            httpSession.setAttribute("departure-date", departureDateInput);
         } else {
             httpSession.setAttribute("search-error", canSearchFlight);
-            doGet(request,response);
         }
+        doGet(request, response);
     }
 }

@@ -55,12 +55,12 @@ public class DestinationService {
         return "An error occurred adding/editing the destination.";
     }
 
-    public String deleteDestination(Destination destination){
-        if(destination == null || destination.getCode() == null){
+    public String deleteDestination(Destination destination) {
+        if (destination == null || destination.getCode() == null) {
             return null;
         }
         boolean success = destinationsDao.deleteDestination(destination);
-        if(success){
+        if (success) {
             return "Destination has been removed.";
         }
         return "An error occurred deleting the destination. Check there are no flights requiring this destination";

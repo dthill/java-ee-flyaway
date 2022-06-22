@@ -45,7 +45,7 @@ public class FlightAdminController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         handleAirlinesPost(request, response);
         handleDestinationsPost(request, response);
-        handleFlightsDeletePost(request,response);
+        handleFlightsDeletePost(request, response);
         handleFlightsAddPost(request, response);
         doGet(request, response);
     }
@@ -122,7 +122,7 @@ public class FlightAdminController extends HttpServlet {
         }
         try {
             if (departureDateInput == null) {
-                throw  new ParseException(departureCodeInput, 0);
+                throw new ParseException(departureCodeInput, 0);
             }
             departureDate = formatter.parse(departureDateInput);
         } catch (ParseException e) {
@@ -131,7 +131,7 @@ public class FlightAdminController extends HttpServlet {
         }
         try {
             if (arrivalDateInput == null) {
-                throw  new ParseException(arrivalCodeInput, 0);
+                throw new ParseException(arrivalCodeInput, 0);
             }
             arrivalDate = formatter.parse(arrivalDateInput);
         } catch (ParseException e) {
@@ -139,7 +139,7 @@ public class FlightAdminController extends HttpServlet {
             System.out.println(e.getMessage());
         }
         try {
-            if(priceInput == null){
+            if (priceInput == null) {
                 throw new NumberFormatException();
             }
             price = Double.parseDouble(priceInput);
@@ -160,7 +160,6 @@ public class FlightAdminController extends HttpServlet {
                         price
                 ));
         httpSession.setAttribute("flight-added", flightAdded);
-
 
 
     }

@@ -55,12 +55,12 @@ public class AirlineService {
         return "An error occurred adding/editing the airline.";
     }
 
-    public String deleteAirline(Airline airline){
-        if(airline == null || airline.getCode() == null){
+    public String deleteAirline(Airline airline) {
+        if (airline == null || airline.getCode() == null) {
             return null;
         }
         boolean success = airlineDao.deleteAirline(airline);
-        if(success){
+        if (success) {
             return "Airline has been removed.";
         }
         return "An error occurred deleting the airline. Check there are no flights requiring this airline";

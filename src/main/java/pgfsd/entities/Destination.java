@@ -11,6 +11,7 @@ public class Destination {
     private String code;
     @Column(nullable = false)
     private String name;
+
     public Destination() {
     }
 
