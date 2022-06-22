@@ -11,15 +11,11 @@
     <%=session.getAttribute("booking-flight")%>
 </div>
 <%
-    if(session.getAttribute("logged-in") == null){
+    if(session.getAttribute("logged-user") == null){
         %>
 <a href="login.jsp?flight=<%=request.getParameter("flight")%>">Login or register</a>
 <%
     } else {
-%>
-
-<%
-    }
 %>
 <h2>Booking Information</h2>
 <form action="book-flight.jsp">
@@ -32,6 +28,11 @@
     <br>
     <input type="submit" value="book now">
 </form>
+
+<%
+    }
+%>
+
 <script>
     const priceString = document.querySelector("#flight-price").innerText;
     const price = parseInt(priceString, 10);

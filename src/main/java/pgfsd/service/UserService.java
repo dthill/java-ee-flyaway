@@ -73,4 +73,20 @@ public class UserService {
         }
         return "An error occurred deleting the user";
     }
+
+    public String checkUserCredentials(User user){
+        if(user == null ||
+                user.getEmail() == null ||
+                user.getEmail().equals("") ||
+                user.getPassword() == null ||
+                user.getPassword().equals("")
+        ){
+            return "Credentials not valid";
+        }
+        boolean correct = userDao.checkPassword(user);
+        if(correct){
+            return null;
+        }
+        return "Credentials incorrect";
+    }
 }

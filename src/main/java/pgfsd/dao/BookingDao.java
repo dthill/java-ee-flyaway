@@ -5,7 +5,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import pgfsd.db.DBUtil;
+import pgfsd.entities.Booking;
 import pgfsd.entities.User;
+
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -13,14 +15,13 @@ import javax.persistence.criteria.Root;
 import java.util.Arrays;
 import java.util.List;
 
-public class UserDao {
-    public boolean addUser(User user) {
-        user.setEmail(user.getEmail().toLowerCase());
+public class BookingDao {
+    public boolean addBooking(Booking booking) {
         SessionFactory sessionFactory = DBUtil.sessionFactory;
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
         try {
-            session.merge(user);
+            session.merge(booking);
             transaction.commit();
             session.close();
             return true;
@@ -34,26 +35,27 @@ public class UserDao {
         }
     }
 
-    public List<User> getAllUsers() {
+    public List<Booking> getAllBookings(User user) {
         SessionFactory factory = DBUtil.sessionFactory;
         Session session = factory.openSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-        CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
-        Root<User> root = criteriaQuery.from(User.class);
-        List<User> allUsers = session
-                .createQuery(criteriaQuery.select(root))
+        CriteriaQuery<Booking> criteriaQuery = criteriaBuilder.createQuery(Booking.class);
+        Root<Booking> root = criteriaQuery.from(Booking.class);
+        List<Booking> bookings = session
+                .createQuery(criteriaQuery.select(root).where(
+                        criteriaBuilder.equal(root.get("user"), user)))
                 .getResultList();
         session.close();
-        return allUsers;
+        return bookings;
     }
 
-    public boolean deleteUser(User user) {
+    public boolean deleteBooking(Booking booking) {
         SessionFactory sessionFactory = DBUtil.sessionFactory;
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
         try {
-            session.delete(user);
+            session.delete(booking);
             transaction.commit();
             session.close();
             return true;
@@ -65,29 +67,5 @@ public class UserDao {
             session.close();
             return false;
         }
-    }
-
-    public boolean checkPassword(User user) {
-        SessionFactory factory = DBUtil.sessionFactory;
-        Session session = factory.openSession();
-        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-        CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
-        Root<User> root = criteriaQuery.from(User.class);
-        List<User> matchingUsers = null;
-        try{
-            matchingUsers = session
-                    .createQuery(criteriaQuery.select(root).where(
-                            criteriaBuilder.and(
-                                    criteriaBuilder.equal(root.get("email"), user.getEmail()),
-                                    criteriaBuilder.equal(root.get("password"), user.getPassword())
-                            )
-                    ))
-                    .getResultList();
-        } catch (Exception e){
-            session.close();
-            return false;
-        }
-        session.close();
-        return matchingUsers != null && matchingUsers.size() == 1;
     }
 }

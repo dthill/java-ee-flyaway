@@ -35,7 +35,7 @@ public class FlightSelectionController extends HttpServlet {
 
         try {
             departureDate = formatter.parse(departureDateInput);
-        } catch (ParseException e) {
+        } catch (Exception e) {
             System.out.println("Departure date not valid: " + departureDateInput);
             System.out.println(e.getMessage());
         }
