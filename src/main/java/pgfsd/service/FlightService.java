@@ -176,6 +176,36 @@ public class FlightService {
         return result.toString();
     }
 
+    public String getFlightById(String id){
+        if(id == null || id.equals("")){
+            return null;
+        }
+        Flight flight = flightDao.getFlightById(id);
+        if(flight == null){
+            return null;
+        }
+        StringBuilder result = new StringBuilder("<table><tr><td>From</td><td>To</td><td>departure date</td><td>arrival date</td><td>price</td></tr>")
+                .append("<tr>")
+                .append("<td>")
+                .append(flight.getDepartureDestination().getName())
+                .append("</td>")
+                .append("<td>")
+                .append(flight.getArrivalDestination().getName())
+                .append("</td>")
+                .append("<td>")
+                .append(flight.getDepartureDate().toString())
+                .append("</td>")
+                .append("<td>")
+                .append(flight.getArrivalDate().toString())
+                .append("</td>")
+                .append("<td id=\"flight-price\">")
+                .append(flight.getPrice())
+                .append("</td>")
+                .append("</tr>")
+                .append("</table>");
+        return result.toString();
+    }
+
     private boolean nullFlight(Flight flight) {
         return flight.getId() == null &&
                 flight.getDepartureDestination() == null &&

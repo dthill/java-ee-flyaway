@@ -88,4 +88,23 @@ public class FlightDao {
         session.close();
         return matchingFlights;
     }
+
+    public Flight getFlightById(String id) {
+        SessionFactory factory = DBUtil.sessionFactory;
+        Session session = factory.openSession();
+        CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+        CriteriaQuery<Flight> criteriaQuery = criteriaBuilder.createQuery(Flight.class);
+        Root<Flight> root = criteriaQuery.from(Flight.class);
+        Flight flight = null;
+        try{
+            flight = session
+                    .createQuery(criteriaQuery.select(root).where(criteriaBuilder.equal(root.get("id"), id)))
+                    .getSingleResult();
+        } catch (Exception e){
+            System.out.println("No flight found for flight id booking");
+            System.out.println(e.getMessage());
+        }
+        session.close();
+        return flight;
+    }
 }
