@@ -124,6 +124,30 @@ public class FlightService {
         return result.toString();
     }
 
+    public String canSearchFlight(Flight flight){
+        if(flight == null){
+            return "No valid Flight provided";
+        }
+        if(flight.getDepartureDate() == null ||
+                flight.getDepartureDate().after(new Date())){
+            return "No valid flight provided. Provide a valid departure date not in the past.";
+        }
+        if(flight.getArrivalDate() == null ||
+                flight.getArrivalDate().after(flight.getDepartureDate())){
+            return "No valid flight provided. Provide a valid arrival date not in the past.";
+        }
+        if(flight.getDepartureDestination() == null ||
+                flight.getDepartureDestination().equals("")){
+            return "No valid flight provided. Provide a valid departure destination.";
+        }
+        if(flight.getArrivalDestination() == null ||
+                flight.getArrivalDestination().equals("") ||
+                flight.getArrivalDestination().equals(flight.getDepartureDestination())){
+            return "No valid flight provided. Provide a valid arrival destination different from the departure destination.";
+        }
+        return null;
+    }
+
     private boolean nullFlight(Flight flight) {
         return flight.getId() == null &&
                 flight.getDepartureDestination() == null &&
