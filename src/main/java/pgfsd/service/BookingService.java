@@ -16,7 +16,7 @@ public class BookingService {
         if (allBookings == null || allBookings.size() == 0) {
             return ("<p>No Bookings found</p>");
         } else {
-            StringBuilder result = new StringBuilder("<table><tr><td>id</td><td>nr of seats</td><td>From</td><td>To</td><td>departure date</td><td>arrival date</td><td>price</td><td>Booking user</td></tr>");
+            StringBuilder result = new StringBuilder("<table><tr><td>id</td><td>nr of seats</td><td>From</td><td>To</td><td>departure date</td><td>arrival date</td><td>price</td><td>Booking email</td></tr>");
             for (Booking booking : allBookings) {
                 result.append("<tr>")
                         .append("<td>")
@@ -41,7 +41,7 @@ public class BookingService {
                         .append(booking.getFlight().getPrice())
                         .append("</td>")
                         .append("<td>")
-                        .append(booking.getUser().getName())
+                        .append(booking.getUser().getEmail())
                         .append("</td>")
                         .append("</tr>");
             }

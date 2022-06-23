@@ -57,14 +57,14 @@ public class FlightAdminController extends HttpServlet {
                 request.getParameter("airline-code"),
                 request.getParameter("airline-name"));
         String addedAirline = airlineService.addAirline(airline);
-        httpSession.setAttribute("airline-added", addedAirline);
+        request.setAttribute("airline-added", addedAirline);
 
         Airline deleteAirline = new Airline(
                 request.getParameter("airline-delete"),
                 ""
         );
         String deletedAirline = airlineService.deleteAirline(deleteAirline);
-        httpSession.setAttribute("airline-deleted", deletedAirline);
+        request.setAttribute("airline-deleted", deletedAirline);
     }
 
 
@@ -75,14 +75,14 @@ public class FlightAdminController extends HttpServlet {
                 request.getParameter("destination-code"),
                 request.getParameter("destination-name"));
         String addedDestination = destinationService.addDestination(destination);
-        httpSession.setAttribute("destination-added", addedDestination);
+        request.setAttribute("destination-added", addedDestination);
 
         Destination deleteDestination = new Destination(
                 request.getParameter("destination-delete"),
                 ""
         );
         String deletedDestination = destinationService.deleteDestination(deleteDestination);
-        httpSession.setAttribute("destination-deleted", deletedDestination);
+        request.setAttribute("destination-deleted", deletedDestination);
     }
 
     private void handleFlightsAddPost(HttpServletRequest request, HttpServletResponse response) {
@@ -146,7 +146,6 @@ public class FlightAdminController extends HttpServlet {
         } catch (NumberFormatException e) {
             System.out.println("Flight price provided not valid: " + flightIdInput);
             System.out.println(e.getMessage());
-
         }
 
         String flightAdded = flightService.addFlight(
@@ -159,9 +158,7 @@ public class FlightAdminController extends HttpServlet {
                         arrivalDate,
                         price
                 ));
-        httpSession.setAttribute("flight-added", flightAdded);
-
-
+        request.setAttribute("flight-added", flightAdded);
     }
 
     private void handleFlightsDeletePost(HttpServletRequest request, HttpServletResponse response) {
@@ -177,7 +174,7 @@ public class FlightAdminController extends HttpServlet {
         }
         Flight deleteFlight = new Flight(deleteFlightId, null, null, new Date(), null, new Date(), 0.0);
         String deletedFlight = flightService.deleteDestination(deleteFlight);
-        httpSession.setAttribute("flight-deleted", deletedFlight);
+        request.setAttribute("flight-deleted", deletedFlight);
     }
 
 }

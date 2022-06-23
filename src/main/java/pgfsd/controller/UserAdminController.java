@@ -29,7 +29,6 @@ public class UserAdminController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession httpSession = request.getSession();
 
         boolean admin = request.getParameter("admin") != null && request.getParameter("admin").equalsIgnoreCase("on");
         User user = new User(
@@ -39,7 +38,7 @@ public class UserAdminController extends HttpServlet {
                 admin
         );
         String addedUser = userService.addUser(user);
-        httpSession.setAttribute("user-added", addedUser);
+        request.setAttribute("user-added", addedUser);
 
         User deleteUser = new User(
                 request.getParameter("user-delete"),
@@ -48,7 +47,7 @@ public class UserAdminController extends HttpServlet {
                 null
         );
         String deletedUser = userService.deleteUser(deleteUser);
-        httpSession.setAttribute("user-deleted", deletedUser);
+        request.setAttribute("user-deleted", deletedUser);
 
         doGet(request, response);
     }

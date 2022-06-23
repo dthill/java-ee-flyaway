@@ -56,7 +56,7 @@ public class FlightSelectionController extends HttpServlet {
             httpSession.setAttribute("arrival-destination", arrivalDestinationInput);
             httpSession.setAttribute("departure-date", departureDateInput);
         } else {
-            httpSession.setAttribute("search-error", canSearchFlight);
+            request.setAttribute("search-error", canSearchFlight);
         }
         doGet(request, response);
     }

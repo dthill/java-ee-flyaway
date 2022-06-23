@@ -24,16 +24,12 @@ public class LoginController extends HttpServlet {
             httpSession.setAttribute("logged-user", userCheck);
             String flightId = request.getParameter("flight");
             if( flightId != null && !flightId.equals("")){
-                request.getServletContext()
-                        .getRequestDispatcher("/book-flight.jsp?flight=" + flightId)
-                        .forward(request,response);
+                response.sendRedirect("book-flight.jsp?flight=" + flightId);
             } else {
-                request.getServletContext()
-                        .getRequestDispatcher("/index.jsp")
-                        .forward(request,response);
+                response.sendRedirect("index.jsp");
             }
         } else {
-            httpSession.setAttribute("login-error", "Login failed");
+            request.setAttribute("login-error", "Login failed");
         }
     }
 }

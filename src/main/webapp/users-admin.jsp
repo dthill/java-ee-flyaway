@@ -19,12 +19,12 @@
 </form>
 <div>
     <%
-        String userAdded = (String) session.getAttribute("user-added");
+        String userAdded = (String) request.getAttribute("user-added");
         if (userAdded != null) {
             System.out.println(userAdded);
         }
 
-        String userDeleted = (String) session.getAttribute("user-deleted");
+        String userDeleted = (String) request.getAttribute("user-deleted");
         if (userDeleted != null) {
             System.out.println(userDeleted);
         }

@@ -22,7 +22,7 @@ public class FlightBookingController extends HttpServlet {
         HttpSession httpSession = request.getSession();
         String flightDetails = flightService.getFlightDetails(request.getParameter("flight"));
         if(flightDetails == null){
-            httpSession.setAttribute("search-error", "Flight not found");
+            request.setAttribute("search-error", "Flight not found");
             request.getServletContext()
                     .getRequestDispatcher("/index.jsp")
                     .forward(request,response);
@@ -69,14 +69,10 @@ public class FlightBookingController extends HttpServlet {
         Booking booking = new Booking(flight, user, bookingQuantity, paid);
         String bookingAdded = bookingService.addBooking(booking);
         if(bookingAdded != null){
-            httpSession.setAttribute("booking-success", bookingAdded);
-            response.sendRedirect("/book-flight.jsp?flight=" + request.getParameter("flight"));
-            return;
+            request.setAttribute("booking-success", bookingAdded);
         } else {
-            httpSession.setAttribute("booking-success", "Booking successfull.");
-            request.getServletContext()
-                    .getRequestDispatcher("/bookings.jsp")
-                    .forward(request,response);
+            request.removeAttribute("booking-success");
+            request.getRequestDispatcher("/bookings.jsp").forward(request,response);
         }
 
     }

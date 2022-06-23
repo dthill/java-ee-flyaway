@@ -40,7 +40,7 @@
 </form>
 <p>
     <%
-        String searchError = (String) session.getAttribute("search-error");
+        String searchError = (String) request.getAttribute("search-error");
         if (searchError != null) {
             out.print(searchError);
         }
@@ -64,6 +64,7 @@
     %>
 </div>
 <br/>
+<a href="bookings.jsp">Bookings</a>
 <a href="flights-admin.jsp">Flight Administration</a>
 <a href="users-admin.jsp">Users Administration</a>
 <br>

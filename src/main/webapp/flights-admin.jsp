@@ -15,12 +15,12 @@
 </form>
 <div>
     <%
-        String addedAirline = (String) session.getAttribute("airline-added");
+        String addedAirline = (String) request.getAttribute("airline-added");
         if (addedAirline != null) {
             out.print(addedAirline);
         }
 
-        String deletedAirline = (String) session.getAttribute("airline-deleted");
+        String deletedAirline = (String) request.getAttribute("airline-deleted");
         if (deletedAirline != null) {
             out.print(deletedAirline);
         }
@@ -40,12 +40,12 @@
 </form>
 <div>
     <%
-        String addedDestination = (String) session.getAttribute("destination-added");
+        String addedDestination = (String) request.getAttribute("destination-added");
         if (addedDestination != null) {
             out.print(addedDestination);
         }
 
-        String deletedDestination = (String) session.getAttribute("destination-deleted");
+        String deletedDestination = (String) request.getAttribute("destination-deleted");
         if (deletedDestination != null) {
             out.print(deletedDestination);
         }
@@ -91,12 +91,12 @@
 </form>
 <div>
     <%
-        String addedFlight = (String) session.getAttribute("flight-added");
+        String addedFlight = (String) request.getAttribute("flight-added");
         if (addedFlight != null) {
             out.print(addedFlight);
         }
 
-        String deletedFlight = (String) session.getAttribute("flight-deleted");
+        String deletedFlight = (String) request.getAttribute("flight-deleted");
         if (deletedFlight != null) {
             out.print(deletedFlight);
         }

@@ -32,7 +32,7 @@
 
 <%
     }
-    String bookingSuccess = (String) session.getAttribute("booking-success");
+    String bookingSuccess = (String) request.getAttribute("booking-success");
     if(bookingSuccess != null){
         out.print(bookingSuccess);
     }

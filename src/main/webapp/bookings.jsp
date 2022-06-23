@@ -7,7 +7,12 @@
 <jsp:include page="/bookings-controller"></jsp:include>
 <h1>Bookings</h1>
 <div>
-    <%=session.getAttribute("booking-success")%>
+    <%
+        String bookingSuccess = (String) request.getAttribute("booking-success");
+        if (bookingSuccess != null) {
+         out.print(bookingSuccess);
+        }
+    %>
     <%=session.getAttribute("bookings")%>
 </div>
 </body>

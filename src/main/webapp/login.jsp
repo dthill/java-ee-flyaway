@@ -3,9 +3,8 @@
     <title>Login/Register</title>
 </head>
 <body>
-<jsp:include page="/login-controller"></jsp:include>
 <h1>Login</h1>
-<form action="login.jsp" method="post">
+<form action="login-controller" method="post">
     <input type="hidden" value="<%=request.getParameter("flight")%>" name="flight" id="flight">
     <label for="email">Email</label>
     <br>
@@ -19,7 +18,7 @@
 </form>
 <p>
     <%
-        String loginError = (String) session.getAttribute("login-error");
+        String loginError = (String) request.getAttribute("login-error");
         if(loginError != null){
             out.print(loginError);
         }

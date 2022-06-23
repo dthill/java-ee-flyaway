@@ -16,7 +16,7 @@ public class BookingsController extends HttpServlet {
         HttpSession httpSession = request.getSession();
         User loggedUser = (User) httpSession.getAttribute("logged-user");
         if(loggedUser == null){
-            httpSession.setAttribute("booking-success", "Not a logged in user");
+            request.setAttribute("booking-success", "Not a logged in user");
         } else {
             httpSession.setAttribute("bookings", bookingService.getAllBookings(loggedUser));
         }
