@@ -16,9 +16,9 @@ public class LoginController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession httpSession = request.getSession();
         User user = new User(request.getParameter("email"), request.getParameter("password"),null, null);
-        String userCheck = userService.checkUserCredentials(user);
-        if(userCheck == null){
-            httpSession.setAttribute("logged-user", user);
+        User userCheck = userService.checkUserCredentials(user);
+        if(userCheck != null){
+            httpSession.setAttribute("logged-user", userCheck);
             String flightId = request.getParameter("flight");
             if( flightId != null && !flightId.equals("")){
                 request.getServletContext()

@@ -17,6 +17,7 @@
         <mapping class="pgfsd.entities.Destination"/>
         <mapping class="pgfsd.entities.Flight"/>
         <mapping class="pgfsd.entities.User"/>
+        <mapping class="pgfsd.entities.Booking"/>
 
 
     </session-factory>

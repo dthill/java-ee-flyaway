@@ -67,27 +67,28 @@ public class UserDao {
         }
     }
 
-    public boolean checkPassword(User user) {
+    public User checkPassword(User user) {
         SessionFactory factory = DBUtil.sessionFactory;
         Session session = factory.openSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<User> criteriaQuery = criteriaBuilder.createQuery(User.class);
         Root<User> root = criteriaQuery.from(User.class);
-        List<User> matchingUsers = null;
+        User matchingUser = null;
         try{
-            matchingUsers = session
+            matchingUser = session
                     .createQuery(criteriaQuery.select(root).where(
                             criteriaBuilder.and(
                                     criteriaBuilder.equal(root.get("email"), user.getEmail()),
                                     criteriaBuilder.equal(root.get("password"), user.getPassword())
                             )
                     ))
-                    .getResultList();
+                    .getSingleResult();
         } catch (Exception e){
+            System.out.println("No single user found matching credentials");
             session.close();
-            return false;
+            return null;
         }
         session.close();
-        return matchingUsers != null && matchingUsers.size() == 1;
+        return matchingUser;
     }
 }

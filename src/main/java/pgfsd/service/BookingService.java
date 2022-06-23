@@ -11,8 +11,8 @@ import java.util.List;
 public class BookingService {
     private final BookingDao bookingDao = new BookingDao();
 
-    public String getAllBookings() {
-        List<Booking> allBookings = bookingDao.getAllBookings(new User());
+    public String getAllBookings(User user) {
+        List<Booking> allBookings = bookingDao.getAllBookings(user);
         if (allBookings == null || allBookings.size() == 0) {
             return ("<p>No Bookings found</p>");
         } else {
@@ -36,7 +36,7 @@ public class BookingService {
     }
 
     public String addBooking(Booking booking) {
-        if (booking == null || booking.getId() == null) {
+        if (booking == null) {
             return "Booking not valid";
         }
         if(booking.getUser() == null){

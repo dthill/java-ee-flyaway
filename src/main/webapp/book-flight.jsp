@@ -18,7 +18,8 @@
     } else {
 %>
 <h2>Booking Information</h2>
-<form action="book-flight.jsp">
+<form action="book-flight.jsp" method="post">
+    <input type="hidden" value="<%=request.getParameter("flight")%>" name="flight" id="flight">
     <label for="booking-quantity">Quantity of seats to book</label>
     <input type="number" min="1" value="1" id="booking-quantity" name="booking-quantity">
     <br>

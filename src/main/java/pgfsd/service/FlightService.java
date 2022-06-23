@@ -176,11 +176,11 @@ public class FlightService {
         return result.toString();
     }
 
-    public String getFlightById(String id){
+    public String getFlightDetails(String id){
         if(id == null || id.equals("")){
             return null;
         }
-        Flight flight = flightDao.getFlightById(id);
+        Flight flight = getFlightById(id);
         if(flight == null){
             return null;
         }
@@ -204,6 +204,10 @@ public class FlightService {
                 .append("</tr>")
                 .append("</table>");
         return result.toString();
+    }
+
+    public Flight getFlightById(String id){
+        return flightDao.getFlightById(id);
     }
 
     private boolean nullFlight(Flight flight) {

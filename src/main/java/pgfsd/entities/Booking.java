@@ -25,8 +25,7 @@ public class Booking {
         this.id = id;
     }
 
-    public Booking(Integer id, Flight flight, User user, Integer seatQuantity, Boolean paid) {
-        this.id = id;
+    public Booking(Flight flight, User user, Integer seatQuantity, Boolean paid) {
         this.flight = flight;
         this.user = user;
         this.seatQuantity = seatQuantity;

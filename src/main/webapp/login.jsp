@@ -6,6 +6,7 @@
 <jsp:include page="/login-controller"></jsp:include>
 <h1>Login</h1>
 <form action="login.jsp" method="post">
+    <input type="hidden" value="<%=request.getParameter("flight")%>" name="flight" id="flight">
     <label for="email">Email</label>
     <br>
     <input type="email" id="email" name="email">
