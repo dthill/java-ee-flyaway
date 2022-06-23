@@ -12,6 +12,7 @@ import pgfsd.entities.User;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,10 +42,17 @@ public class BookingDao {
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
         CriteriaQuery<Booking> criteriaQuery = criteriaBuilder.createQuery(Booking.class);
         Root<Booking> root = criteriaQuery.from(Booking.class);
-        List<Booking> bookings = session
-                .createQuery(criteriaQuery.select(root).where(
-                        criteriaBuilder.equal(root.get("user"), user)))
-                .getResultList();
+        List<Booking> bookings = new ArrayList<>();
+        try {
+            bookings = session
+                    .createQuery(criteriaQuery.select(root).where(
+                            criteriaBuilder.equal(root.get("user"), user)))
+                    .getResultList();
+        }
+        catch (Exception e){
+            System.out.println("error retrieving all bookings for user: " + user);
+            session.close();
+        }
         session.close();
         return bookings;
     }
