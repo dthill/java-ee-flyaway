@@ -64,6 +64,7 @@
     %>
 </div>
 <br/>
+<a href="login.jsp">Login</a>
 <a href="flights-admin.jsp">Flight Administration</a>
 <a href="users-admin.jsp">Users Administration</a>
 
