@@ -25,7 +25,7 @@ public class FlightDao {
             transaction.commit();
             session.close();
             return true;
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             System.out.println(Arrays.toString(e.getStackTrace()));
             if (transaction != null) {
                 transaction.rollback();

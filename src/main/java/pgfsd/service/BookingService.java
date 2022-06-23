@@ -16,17 +16,32 @@ public class BookingService {
         if (allBookings == null || allBookings.size() == 0) {
             return ("<p>No Bookings found</p>");
         } else {
-            StringBuilder result = new StringBuilder("<table><tr><td>id</td><td>name</td><td>delete airline</td></tr>");
+            StringBuilder result = new StringBuilder("<table><tr><td>id</td><td>nr of seats</td><td>From</td><td>To</td><td>departure date</td><td>arrival date</td><td>price</td><td>Booking user</td></tr>");
             for (Booking booking : allBookings) {
                 result.append("<tr>")
                         .append("<td>")
                         .append(booking.getId())
                         .append("</td>")
                         .append("<td>")
-                        .append(booking.getFlight())
+                        .append(booking.getSeatQuantity())
                         .append("</td>")
                         .append("<td>")
-                        .append(booking.getSeatQuantity())
+                        .append(booking.getFlight().getDepartureDestination().getName())
+                        .append("</td>")
+                        .append("<td>")
+                        .append(booking.getFlight().getArrivalDestination().getName())
+                        .append("</td>")
+                        .append("<td>")
+                        .append(booking.getFlight().getDepartureDate())
+                        .append("</td>")
+                        .append("<td>")
+                        .append(booking.getFlight().getArrivalDate())
+                        .append("</td>")
+                        .append("<td>")
+                        .append(booking.getFlight().getPrice())
+                        .append("</td>")
+                        .append("<td>")
+                        .append(booking.getUser().getName())
                         .append("</td>")
                         .append("</tr>");
             }

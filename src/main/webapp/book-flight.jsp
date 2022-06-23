@@ -32,6 +32,10 @@
 
 <%
     }
+    String bookingSuccess = (String) session.getAttribute("booking-success");
+    if(bookingSuccess != null){
+        out.print(bookingSuccess);
+    }
 %>
 
 <script>

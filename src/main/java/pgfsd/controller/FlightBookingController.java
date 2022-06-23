@@ -33,6 +33,10 @@ public class FlightBookingController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if(request.getParameter("email") != null ){
+            doGet(request,response);
+            return;
+        }
         HttpSession httpSession = request.getSession();
         String bookingQuantityInput = request.getParameter("booking-quantity");
         String creditCardInput = request.getParameter("booking-credit-card");
@@ -65,13 +69,11 @@ public class FlightBookingController extends HttpServlet {
         Booking booking = new Booking(flight, user, bookingQuantity, paid);
         String bookingAdded = bookingService.addBooking(booking);
         if(bookingAdded != null){
-            httpSession.setAttribute("search-error", bookingAdded);
-            request.getServletContext()
-                    .getRequestDispatcher("/index.jsp")
-                    .forward(request,response);
+            httpSession.setAttribute("booking-success", bookingAdded);
+            response.sendRedirect("/book-flight.jsp?flight=" + request.getParameter("flight"));
             return;
         } else {
-            httpSession.setAttribute("booking-success", bookingAdded);
+            httpSession.setAttribute("booking-success", "Booking successfull.");
             request.getServletContext()
                     .getRequestDispatcher("/bookings.jsp")
                     .forward(request,response);
