@@ -11,6 +11,11 @@ import java.io.IOException;
 @WebFilter(filterName = "AdminFilter", urlPatterns = {"/flights-admin.jsp", "/users-admin.jsp"})
 public class AdminFilter implements Filter {
     @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+
+    }
+
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpSession session = httpRequest.getSession(false);
@@ -22,5 +27,10 @@ public class AdminFilter implements Filter {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
         chain.doFilter(request, response);
+    }
+
+    @Override
+    public void destroy() {
+
     }
 }

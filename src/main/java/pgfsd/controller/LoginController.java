@@ -23,13 +23,14 @@ public class LoginController extends HttpServlet {
         if(userCheck != null){
             httpSession.setAttribute("logged-user", userCheck);
             String flightId = request.getParameter("flight");
-            if( flightId != null && !flightId.equals("")){
+            if( flightId != null && !flightId.equals("") && !flightId.equals("null")){
                 response.sendRedirect("book-flight.jsp?flight=" + flightId);
             } else {
                 response.sendRedirect("index.jsp");
             }
         } else {
             request.setAttribute("login-error", "Login failed");
+            request.getRequestDispatcher("login.jsp").forward(request,response);
         }
     }
 }

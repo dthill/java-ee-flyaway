@@ -9,6 +9,11 @@ import java.io.IOException;
 @WebFilter(filterName = "LoginFilter",urlPatterns = {"/bookings.jsp"})
 public class LoginFilter implements Filter {
     @Override
+    public void init(FilterConfig filterConfig) throws ServletException {
+
+    }
+
+    @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpSession session = httpRequest.getSession(false);
@@ -17,5 +22,10 @@ public class LoginFilter implements Filter {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
         chain.doFilter(request, response);
+    }
+
+    @Override
+    public void destroy() {
+
     }
 }
