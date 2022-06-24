@@ -48,6 +48,7 @@ public class UserDao {
     }
 
     public boolean deleteUser(User user) {
+        user.setEmail(user.getEmail().toLowerCase());
         SessionFactory sessionFactory = DBUtil.sessionFactory;
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -68,6 +69,7 @@ public class UserDao {
     }
 
     public User checkPassword(User user) {
+        user.setEmail(user.getEmail().toLowerCase());
         SessionFactory factory = DBUtil.sessionFactory;
         Session session = factory.openSession();
         CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
@@ -90,5 +92,28 @@ public class UserDao {
         }
         session.close();
         return matchingUser;
+    }
+
+    public boolean registerNewUser(User user){
+        user.setEmail(user.getEmail().toLowerCase());
+        if(getAllUsers().size() == 0){
+            user.setAdmin(true);
+        }
+        SessionFactory sessionFactory = DBUtil.sessionFactory;
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.save(user);
+            transaction.commit();
+            session.close();
+            return true;
+        } catch (HibernateException e) {
+            System.out.println(Arrays.toString(e.getStackTrace()));
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            session.close();
+            return false;
+        }
     }
 }

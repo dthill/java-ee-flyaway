@@ -1,4 +1,5 @@
 <%@ page import="pgfsd.entities.Flight" %>
+<%@ page import="pgfsd.entities.User" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,7 +69,19 @@
 <a href="flights-admin.jsp">Flight Administration</a>
 <a href="users-admin.jsp">Users Administration</a>
 <br>
-<a href="login.jsp">Login</a>
+<a href="login.jsp">Login/Register</a>
 <a href="logout-controller">Logout</a>
+<div>
+    <%
+        String logoutSuccess = (String) request.getAttribute("logout-success");
+        if (logoutSuccess != null) {
+            out.print(logoutSuccess);
+        }
+        User loggedUser = (User) session.getAttribute("logged-user");
+        if (loggedUser != null) {
+            out.print("Logged in");
+        }
+    %>
+</div>
 </body>
 </html>

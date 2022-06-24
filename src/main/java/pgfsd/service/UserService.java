@@ -85,4 +85,24 @@ public class UserService {
         }
         return userDao.checkPassword(user);
     }
+
+    public String registerNerUser(User user){
+        if(user == null) {
+            return "User not valid";
+        }
+        if (user.getEmail() == null || user.getEmail().equals("")) {
+            return "User not valid. Provide a valid email";
+        }
+        if (user.getPassword() == null || user.getPassword().equals("")) {
+            return "User not valid. Provide a valid password";
+        }
+        if (user.getName() == null || user.getName().equals("")) {
+            return "User not valid. Provide a valid name";
+        }
+        boolean success = userDao.registerNewUser(user);
+        if (success) {
+            return null;
+        }
+        return "An error occurred registering new user.";
+    }
 }

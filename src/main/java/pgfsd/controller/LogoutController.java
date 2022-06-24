@@ -20,6 +20,7 @@ public class LogoutController extends HttpServlet {
         if (session != null) {
             session.invalidate();
         }
-        response.sendRedirect("index.jsp");
+        request.setAttribute("logout-success", "Logout success");
+        request.getRequestDispatcher("/index.jsp").forward(request,response);
     }
 }
